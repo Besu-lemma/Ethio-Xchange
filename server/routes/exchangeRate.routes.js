@@ -1,0 +1,28 @@
+const express = require("express");
+const router = express.Router();
+
+// Import controller functions (we'll implement them next)
+const {
+    createExchangeRate: createRate,
+    getAllExchangeRates: getAllRates,
+    getExchangeRateById: getRateById,
+    updateExchangeRate: updateRate,
+    deleteExchangeRate: deleteRate,
+} = require("../controllers/exchangeRate.controllers");
+
+// Route to create a new exchange rate
+router.post("/", createRate);
+
+// Route to get all exchange rates
+router.get("/", getAllRates);
+
+// Route to get a single exchange rate by ID
+router.get("/:id", getRateById);
+
+// Route to update an exchange rate by ID
+router.put("/:id", updateRate);
+
+// Route to delete an exchange rate by ID
+router.delete("/:id", deleteRate);
+
+module.exports = router;
