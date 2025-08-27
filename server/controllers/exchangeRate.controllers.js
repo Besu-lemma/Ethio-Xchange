@@ -1,8 +1,7 @@
-// ethioexchange-server/controllers/exchangeRate.controller.js
+// controllers/exchangeRate.controller.js
+const ExchangeRate = require("../models/ExchangeRate.model");
 
-const ExchangeRate = require("../models/ExchangeRate");
-
-// @desc    Create a new exchange rate
+// Create
 const createExchangeRate = async (req, res) => {
   try {
     const rate = await ExchangeRate.create(req.body);
@@ -12,20 +11,25 @@ const createExchangeRate = async (req, res) => {
   }
 };
 
-// @desc    Get all exchange rates
+// Get all
 const getAllExchangeRates = async (req, res) => {
   try {
-    const rates = await ExchangeRate.find().sort({ createdAt: -1 });
+    const rates = await ExchangeRate.find()
+      .populate("providerBank", "name code logourl")
+      .sort({ createdAt: -1 });
     res.status(200).json(rates);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
 };
 
-// @desc    Get one exchange rate by ID
+// Get one
 const getExchangeRateById = async (req, res) => {
   try {
-    const rate = await ExchangeRate.findById(req.params.id);
+    const rate = await ExchangeRate.findById(req.params.id).populate(
+      "providerBank",
+      "name code logourl"
+    );
     if (!rate) return res.status(404).json({ message: "Not found" });
     res.status(200).json(rate);
   } catch (error) {
@@ -33,7 +37,7 @@ const getExchangeRateById = async (req, res) => {
   }
 };
 
-// @desc    Update an exchange rate
+// Update
 const updateExchangeRate = async (req, res) => {
   try {
     const rate = await ExchangeRate.findByIdAndUpdate(req.params.id, req.body, {
@@ -46,7 +50,7 @@ const updateExchangeRate = async (req, res) => {
   }
 };
 
-// @desc    Delete an exchange rate
+// Delete
 const deleteExchangeRate = async (req, res) => {
   try {
     const rate = await ExchangeRate.findByIdAndDelete(req.params.id);
