@@ -1,9 +1,9 @@
 const express = require("express");
 const router = express.Router();
-const exchangeRateController = require("../controllers/exchangeRate.controller");
-const auth = require("../middleware/auth");
+const exchangeRateController = require("../controllers/exchangeRate.controllers");
+const auth = require("../middleware/auth.middleware");
 
-router.get("/", exchangeRateController.getExchangeRates);
+router.get("/", exchangeRateController.getAllExchangeRates);
 router.get("/:id", exchangeRateController.getExchangeRateById);
 
 // 🔒 Protected: only admin can add, update, delete rates

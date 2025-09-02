@@ -6,7 +6,7 @@ const cors = require("cors");
 const exchangeRateRoutes = require("./routes/exchangeRate.routes");
 const bankRoutes = require("./routes/bank.routes");
 const errorHandler = require("./middleware/errorHandler.js");
-const authRoutes = require("./routes/auth.routes");
+const authRoutes = require("./routes/auth.routes.js");
 
 // Load environment variables
 dotenv.config();
